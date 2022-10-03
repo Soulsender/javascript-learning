@@ -14,9 +14,9 @@
   </div>
 
   <script>
+    // clock stuff
     var time = document.querySelector('.time');
     var dateTime = document.querySelector('.date-time');
-
     function updateClock() {
       // Get the current time, day , month and year
       var now = new Date();
@@ -27,10 +27,8 @@
       var date = now.getDate();
       var month = now.getMonth();
       var year = now.getFullYear();
-
       var dayNames = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
       var monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-
       h = h % 12 || 12;
       m = m < 10 ? '0' + m : m;
       s = s < 10 ? '0' + s : s;
@@ -40,9 +38,9 @@
       dateTime.innerHTML = dayNames[day] + ', ' + monthNames[month] + ' ' + date + ', ' + year;
     }
 
+    // random background
     var timeout = false;
     var interval;
-
     function randomBackground(){
       timeout = true;
       interval = setInterval(function(){
@@ -50,18 +48,19 @@
         var randomColor = "#" + (Math.floor(Math.random()*16777215).toString(16));
         const clockCss = document.querySelector('.clock');
         clockCss.style.backgroundColor = randomColor;
-
+        let sound = new Audio('ticktock.mp3');
+        sound.play();        
       }, 1000);
     }
-
     function stopBackground(){
       clearInterval(interval);
       timeout = false;
     }
 
+    // run everything
     updateClock();
     setInterval(updateClock, 1000);
-    randomBackground()
+    randomBackground();
   </script>
 </body>
 
