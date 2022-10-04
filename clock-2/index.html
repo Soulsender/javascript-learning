@@ -8,12 +8,23 @@
 </head>
 
 <body>
+
   <div class="clock">
     <div class="time"></div>
     <div class="date-time"></div>
   </div>
 
   <script>
+    // THINGS ENHANCED
+    // - Changed look of clock
+    // - Added ticking sound
+    // - Added Random colors
+    // - Changed Font
+    // - Changed Page Title
+    // - Added date
+    // - Text gets progressively bigger
+
+
     // clock stuff
     var time = document.querySelector('.time');
     var dateTime = document.querySelector('.date-time');
@@ -38,19 +49,28 @@
       dateTime.innerHTML = dayNames[day] + ', ' + monthNames[month] + ' ' + date + ', ' + year;
     }
 
-    // random background
+    // random background & looping every second
+    var textSize = 80;
     var timeout = false;
     var interval;
-    function randomBackground(){
+    function secondLoop(){
       timeout = true;
       interval = setInterval(function(){
+
         // random color for css
         var randomColor = "#" + (Math.floor(Math.random()*16777215).toString(16));
         const clockCss = document.querySelector('.clock');
         clockCss.style.backgroundColor = randomColor;
+
+        // make text get bigger with every second
+        textSize++;
+        clockCss.style.fontSize = textSize + 'px';
+
+        // play sound
         let sound = new Audio('ticktock.mp3');
         sound.play();        
       }, 1000);
+
     }
     function stopBackground(){
       clearInterval(interval);
@@ -60,7 +80,7 @@
     // run everything
     updateClock();
     setInterval(updateClock, 1000);
-    randomBackground();
+    secondLoop();
   </script>
 </body>
 
