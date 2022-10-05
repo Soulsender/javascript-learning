@@ -12,6 +12,7 @@
   <div class="clock">
     <div class="time"></div>
     <div class="date-time"></div>
+    <div class="date-time-short"></div>
   </div>
 
   <script>
@@ -23,11 +24,14 @@
     // - Changed Page Title
     // - Added date
     // - Text gets progressively bigger
-
+    // - Put javascript inline
+    // - Added pop-up
+    // - Added shorthand date
 
     // clock stuff
     var time = document.querySelector('.time');
     var dateTime = document.querySelector('.date-time');
+    var shortDateTime = document.querySelector('.date-time-short');
     function updateClock() {
       // Get the current time, day , month and year
       var now = new Date();
@@ -47,10 +51,11 @@
       var period = h < 12 ? 'AM' : 'PM';
       time.innerHTML = h + ':' + m + ':' + s + ' ' + period;
       dateTime.innerHTML = dayNames[day] + ', ' + monthNames[month] + ' ' + date + ', ' + year;
+      shortDateTime.innerHTML = date + '/' + month + '/' + year;
     }
 
     // random background & looping every second
-    var textSize = 80;
+    var textSize = 20;
     var timeout = false;
     var interval;
     function secondLoop(){
@@ -60,13 +65,14 @@
         // random color for css
         var randomColor = "#" + (Math.floor(Math.random()*16777215).toString(16));
         const clockCss = document.querySelector('.clock');
+        const timeCss = document.querySelector('.time');
         clockCss.style.backgroundColor = randomColor;
 
         // make text get bigger with every second
         textSize++;
-        clockCss.style.fontSize = textSize + 'px';
+        timeCss.style.fontSize = textSize + 'px';
 
-        // play sound
+        // play ticking sound
         let sound = new Audio('ticktock.mp3');
         sound.play();        
       }, 1000);
@@ -76,6 +82,8 @@
       clearInterval(interval);
       timeout = false;
     }
+
+    //alert('Made by jasper')
 
     // run everything
     updateClock();
