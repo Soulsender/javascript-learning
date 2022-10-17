@@ -19,7 +19,7 @@ var brickOffsetTop = 30;
 var brickOffsetLeft = 30;
 var score = 0;
 var lives = 3;
-var level = 1;
+var countdown = 3;
 var randomColor = "#" + (Math.floor(Math.random()*16777215).toString(16));
 
 var bricks = [];
@@ -35,18 +35,18 @@ document.addEventListener("keyup", keyUpHandler, false);
 document.addEventListener("mousemove", mouseMoveHandler, false);
 
 function keyDownHandler(e) {
-    if(e.code  == "ArrowRight") {
+    if (e.code  == "ArrowRight" || e.code == "KeyD") {
         rightPressed = true;
     }
-    else if(e.code == 'ArrowLeft') {
+    else if (e.code == 'ArrowLeft' || e.code == "KeyA") {
         leftPressed = true;
     }
 }
 function keyUpHandler(e) {
-    if(e.code == 'ArrowRight') {
+    if (e.code == 'ArrowRight' || e.code == "KeyD") {
         rightPressed = false;
     }
-    else if(e.code == 'ArrowLeft') {
+    else if (e.code == 'ArrowLeft' || e.code == "KeyA") {
         leftPressed = false;
     }
 }
@@ -106,6 +106,7 @@ function drawBricks() {
         }
     }
 }
+
 function youWin() {
     ctx.font = "40px monospace";
     ctx.fillStyle = "#ff0000";
@@ -119,13 +120,16 @@ function drawScore() {
 function drawLives() {
     ctx.font = "16px monospace";
     ctx.fillStyle = randomColor;
-    ctx.fillText("Lives: "+lives, canvas.width-65, 20);
+    ctx.fillText("Lives: "+lives, canvas.width-85, 20);
 }
-function drawLevel() {
-    ctx.font = "16px monospace";
-    ctx.fillStyle = randomColor;
-    ctx.fillText("Level: "+level, canvas.width -350, 20);
-}
+
+// function countDown() {
+//     countdown--;
+//     console.log(countdown);
+//     if (countdown == 0) {
+//         console.log("as")
+//     }
+// }
 
 function draw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -134,7 +138,6 @@ function draw() {
     drawPaddle();
     drawScore();
     drawLives();
-    drawLevel();
     collisionDetection();
 
     if(x + dx > canvas.width-ballRadius || x + dx < ballRadius) {
@@ -175,4 +178,5 @@ function draw() {
     requestAnimationFrame(draw);
 }
 
+//setTimeout(countDown(), 3000);
 draw();
