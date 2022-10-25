@@ -19,8 +19,8 @@ var brickOffsetTop = 30;
 var brickOffsetLeft = 30;
 var score = 0;
 var lives = 3;
-var countdown = 3;
 var randomColor = "#" + (Math.floor(Math.random()*16777215).toString(16));
+var stop = false;
 
 var bricks = [];
 for(var c=0; c<brickColumnCount; c++) {
@@ -123,14 +123,6 @@ function drawLives() {
     ctx.fillText("Lives: "+lives, canvas.width-85, 20);
 }
 
-// function countDown() {
-//     countdown--;
-//     console.log(countdown);
-//     if (countdown == 0) {
-//         console.log("as")
-//     }
-// }
-
 function draw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     drawBricks();
@@ -178,5 +170,4 @@ function draw() {
     requestAnimationFrame(draw);
 }
 
-//setTimeout(countDown(), 3000);
 draw();
