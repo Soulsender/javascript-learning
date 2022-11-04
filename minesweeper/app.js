@@ -7,6 +7,9 @@ document.addEventListener('DOMContentLoaded', () => {
   let flags = 0
   let squares = []
   let isGameOver = false
+  var points = 0;
+  var pointsScore = document.getElementById("points");
+  pointsScore.innerHTML = points;
 
   //create Board
   function createBoard() {
@@ -83,7 +86,10 @@ document.addEventListener('DOMContentLoaded', () => {
     if (isGameOver) return
     if (square.classList.contains('checked') || square.classList.contains('flag')) return
     if (square.classList.contains('bomb')) {
-      gameOver(square)
+      // play explosion sound
+      let sound = new Audio('boom.mp3');
+      sound.play(); 
+      gameOver(square)  
     } else {
       let total = square.getAttribute('data')
       if (total !=0) {
@@ -93,7 +99,8 @@ document.addEventListener('DOMContentLoaded', () => {
         if (total == 3) square.classList.add('three')
         if (total == 4) square.classList.add('four')
         square.innerHTML = total
-        return
+        pointsScore.innerHTML = points;
+        return points++;
       }
       checkSquare(square, currentId)
     }
